@@ -2,3 +2,4 @@
 venv
 db.sqlite3
 poll_app/__pycache__/
+polls/__pycache__/

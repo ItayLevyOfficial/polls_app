@@ -7,7 +7,9 @@ from .models import Question
 
 def create_question(question_text, days):
     pub_date = timezone.now() + datetime.timedelta(days=days)
-    return Question(question_text=question_text, pub_date=pub_date)
+    question = Question(question_text=question_text, pub_date=pub_date)
+    question.save()
+    return question
 
 
 class QuestionIndexViewTests(TestCase):
@@ -16,6 +18,14 @@ class QuestionIndexViewTests(TestCase):
         self.assertEquals(first=200, second=response.status_code)
         self.assertContains(response=response, text='No polls are available.', html=True)
         self.assertQuerysetEqual([], response.context['latest_question_list'])
+
+    def test_past_question(self):
+        create_question(question_text='Past question.', days=-30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            qs=response.context['latest_question_list'],
+            values=['<Question: Past question.>']
+        )
 
 
 class QuestionModelTests(TestCase):

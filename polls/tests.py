@@ -27,6 +27,24 @@ class QuestionIndexViewTests(TestCase):
             values=['<Question: Past question.>']
         )
 
+    def test_future_question_and_past_question(self):
+        create_question(question_text='Future question.', days=30)
+        create_question(question_text='Past question.', days=-30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            qs=response.context['latest_question_list'],
+            values=['<Question: Past question.>']
+        )
+
+    def tast_two_past_questions(self):
+        create_question(question_text='Past question 1.', days=-30)
+        create_question(question_text='Past question 2.', days=-5)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            qs=response.context['latest_question_list'],
+            values=['<Question: Past question 2.>', '<Question: Past question 1.>']
+        )
+
 
 class QuestionModelTests(TestCase):
 

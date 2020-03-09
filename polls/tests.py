@@ -36,7 +36,7 @@ class QuestionIndexViewTests(TestCase):
             values=['<Question: Past question.>']
         )
 
-    def tast_two_past_questions(self):
+    def test_two_past_questions(self):
         create_question(question_text='Past question 1.', days=-30)
         create_question(question_text='Past question 2.', days=-5)
         response = self.client.get(reverse('polls:index'))

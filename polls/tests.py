@@ -12,9 +12,16 @@ def create_question(question_text, days):
     return question
 
 
+class QuestionDetailViewTests(TestCase):
+    def test_future_question(self):
+        future_question = create_question(question_text='Future question.', days=30)
+        response = self.client.get(path=reverse(viewname='polls:detail', args=(future_question.id,)))
+        self.assertEquals(404, response.status_code)
+
+
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
-        response = self.client.get(reverse('polls:index'))
+        response = self.client.get(reverse(viewname='polls:index'))
         self.assertEquals(first=200, second=response.status_code)
         self.assertContains(response=response, text='No polls are available.', html=True)
         self.assertQuerysetEqual([], response.context['latest_question_list'])

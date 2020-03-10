@@ -18,6 +18,11 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(path=reverse(viewname='polls:detail', args=(future_question.id,)))
         self.assertEquals(404, response.status_code)
 
+    def test_past_question(self):
+        past_question = create_question(question_text='Past question.', days=-30)
+        response = self.client.get(path=reverse(viewname='polls:detail', args=(past_question.id,)))
+        self.assertContains(response, past_question.question_text)
+
 
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):

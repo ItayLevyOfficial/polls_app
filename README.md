@@ -14,9 +14,12 @@
 * ### Searching, sorting and filtering questions.
 ## Setup:
 ### Requirements:
-
+* #### Python 3.7
 ### Run:
-* #### ```git clone https://github.com/ItayLevyOfficial/polls_app.git```
-* #### ```cd polls_app```
-* #### ```pip install -r requirements.txt```
-* #### ```python manage.py runserver```
+```shell script 
+git clone https://github.com/ItayLevyOfficial/polls_app.git
+cd polls_app
+pip install -r requirements.txt
+./manage.py runserver
+```
+

@@ -11,7 +11,7 @@
 * ### Adding and deleting questions.
 * ### Voting.
 * ### Persistent questions and voting count using sqlite.
-* ### Searching, sorting and filtering questions.
+* ### Searching, sorting and filtering of questions.
 ## Setup:
 ### Requirements:
 * #### Python 3.7
